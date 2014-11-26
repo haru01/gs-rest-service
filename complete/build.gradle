@@ -13,6 +13,12 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+war {
+    baseName = 'myhello'
+    version  = '0.0.1'
+}
 
 jar {
     baseName = 'gs-rest-service'
@@ -23,10 +29,17 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven { url "https://repo.spring.io/libs-release" }
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+configurations {
+    providedRuntime
 }
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile('org.springframework.boot:spring-boot-legacy:1.0.1.RELEASE')
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("junit:junit")
 }
 
